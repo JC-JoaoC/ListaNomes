@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  padding: 20px;
+  padding-bottom: 80px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+header {
+  background-color: #075e54;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.2rem;
+}
+ul {
+  list-style: none;
+}
+
+li {
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+li:nth-child(even) {
+  background-color: #fafafa;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.whatsapp-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.pop-duvida {
+  background-color: white;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 0.85rem;
+  font-weight: bold;
+  position: relative;
+  animation: float 2s infinite ease-in-out;
+  margin-right: 5px;
+}
+
+/* Triângulo do balão */
+.pop-duvida::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid white;
+}
+
+.btn-whatsapp {
+  background-color: #25d366;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+
+.btn-whatsapp:hover {
+  transform: scale(1.1);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
