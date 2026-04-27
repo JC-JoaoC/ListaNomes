@@ -11,6 +11,12 @@ body {
   padding-bottom: 80px;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .container {
   max-width: 600px;
   margin: 0 auto;
