@@ -1,287 +1,310 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lista de Nomes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0d0d;
-      --surface: #161616;
-      --card: #1e1e1e;
-      --border: #2a2a2a;
-      --gold: #c9a84c;
-      --gold-light: #e8c96a;
-      --text: #e8e8e8;
-      --muted: #888;
-      --highlight: #c9a84c22;
+      --blue: #2563eb;
+      --blue-light: #eff6ff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #94a3b8;
+      --bg: #f8fafc;
     }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Lato', sans-serif;
+      font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* Background texture */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, #c9a84c0a 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 90%, #c9a84c07 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .wrapper {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 60px 24px 80px;
-      position: relative;
-      z-index: 1;
+      padding: 40px 16px 80px;
     }
 
     /* Header */
     header {
       text-align: center;
-      margin-bottom: 52px;
-      animation: fadeDown 0.7s ease both;
+      margin-bottom: 32px;
     }
 
     .eyebrow {
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      font-size: 11px;
-      letter-spacing: 5px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 14px;
+      color: var(--blue);
+      margin-bottom: 8px;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 7vw, 68px);
-      font-weight: 900;
-      line-height: 1.0;
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 700;
       color: var(--text);
+      line-height: 1.15;
     }
 
-    h1 span {
-      color: var(--gold);
-    }
-
-    .divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 22px auto 0;
+    .header-line {
+      width: 48px;
+      height: 3px;
+      background: var(--blue);
+      margin: 12px auto 0;
+      border-radius: 2px;
     }
 
     /* Search */
     .search-wrap {
+      max-width: 500px;
+      margin: 0 auto 12px;
       position: relative;
-      margin-bottom: 44px;
-      animation: fadeDown 0.7s 0.15s ease both;
     }
 
-    .search-wrap svg {
+    .search-icon {
       position: absolute;
-      left: 18px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--gold);
+      color: var(--muted);
       pointer-events: none;
     }
 
     #search {
       width: 100%;
-      padding: 16px 20px 16px 52px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      padding: 13px 16px 13px 44px;
+      background: #fff;
+      border: 1.5px solid var(--border);
       border-radius: 4px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       color: var(--text);
-      font-family: 'Lato', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      letter-spacing: 0.5px;
       outline: none;
-      transition: border-color 0.25s, box-shadow 0.25s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     #search::placeholder { color: var(--muted); }
 
     #search:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px #c9a84c15;
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px #2563eb18;
     }
 
-    /* Counter */
     #counter {
+      max-width: 500px;
+      margin: 0 auto 28px;
       text-align: right;
       font-size: 12px;
       color: var(--muted);
-      margin-top: 10px;
-      letter-spacing: 1px;
+      padding-right: 2px;
     }
 
-    #counter strong { color: var(--gold); }
+    #counter strong { color: var(--blue); font-weight: 600; }
 
     /* No results */
     #no-results {
       display: none;
       text-align: center;
-      padding: 60px 20px;
+      padding: 48px 0;
       color: var(--muted);
-      font-size: 15px;
-      letter-spacing: 0.5px;
+      font-size: 14px;
     }
 
-    #no-results .emoji { font-size: 40px; display: block; margin-bottom: 14px; }
+    #no-results .icon { font-size: 36px; display: block; margin-bottom: 10px; }
 
-    /* Letter sections */
-    .letter-section {
-      margin-bottom: 36px;
-      animation: fadeUp 0.5s ease both;
+    /* List */
+    .list-body {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
     }
 
+    .letter-section.hidden { display: none; }
+
+    /* Letter header — square badge from original design */
     .letter-header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 14px;
+      gap: 14px;
+      margin-bottom: 10px;
     }
 
     .letter-badge {
-      width: 42px;
-      height: 42px;
-      border: 1.5px solid var(--gold);
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--blue);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      color: var(--gold);
+      color: var(--blue);
       flex-shrink: 0;
+      background: var(--blue-light);
       position: relative;
-    }
-
-    .letter-badge::before {
-      content: '';
-      position: absolute;
-      inset: 3px;
-      background: var(--gold);
-      opacity: 0.08;
     }
 
     .letter-line {
       flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--border), transparent);
+      height: 1.5px;
+      background: var(--border);
     }
 
     .letter-count {
       font-size: 11px;
       color: var(--muted);
-      letter-spacing: 2px;
+      font-weight: 500;
+      letter-spacing: 1px;
     }
 
-    /* Name list */
-    .names-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-
-    @media (max-width: 520px) {
-      .names-grid { grid-template-columns: 1fr; }
-    }
-
+    /* Name cards */
     .name-item {
-      padding: 11px 16px;
-      background: var(--card);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #fff;
       border: 1px solid var(--border);
       border-left: 3px solid transparent;
-      border-radius: 3px;
+      border-radius: 4px;
+      margin-bottom: 6px;
       font-size: 14px;
-      font-weight: 300;
+      font-weight: 500;
       color: var(--text);
-      letter-spacing: 0.3px;
-      transition: all 0.2s ease;
       cursor: default;
+      transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s, background 0.15s;
     }
 
+    .name-item:last-child { margin-bottom: 0; }
+
     .name-item:hover {
-      border-left-color: var(--gold);
-      background: var(--highlight);
-      color: var(--gold-light);
+      border-left-color: var(--blue);
+      background: var(--blue-light);
       transform: translateX(3px);
     }
 
-    /* Search highlight */
+    .name-num {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 22px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .name-item.hidden { display: none; }
+
     .name-item mark {
-      background: var(--gold);
-      color: #0d0d0d;
+      background: #fef08a;
+      color: var(--text);
       border-radius: 2px;
       padding: 0 2px;
-      font-weight: 700;
     }
 
-    /* Hidden */
-    .name-item.hidden { display: none; }
-    .letter-section.hidden { display: none; }
-
-    /* Animations */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-18px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--muted);
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+    footer a:hover { text-decoration: underline; }
+
+    /* WhatsApp FAB */
+    .whatsapp-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 24px;
+      width: 52px;
+      height: 52px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px #25d36640;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      z-index: 100;
+    }
+
+    .whatsapp-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 22px #25d36655;
+    }
+
+    .whatsapp-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: #fff;
+    }
+
+    /* Tooltip */
+    .whatsapp-btn::before {
+      content: 'Dúvidas? Fale comigo';
+      position: absolute;
+      right: 60px;
+      background: #1e293b;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .whatsapp-btn:hover::before { opacity: 1; }
   </style>
 </head>
 <body>
-<div class="wrapper">
 
   <header>
     <p class="eyebrow">Relação Oficial</p>
-    <h1>Lista de <span>Nomes</span></h1>
-    <div class="divider"></div>
+    <h1>Lista de Nomes</h1>
+    <div class="header-line"></div>
   </header>
 
   <div class="search-wrap">
-    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
     </svg>
-    <input type="search" id="search" placeholder="Digite seu nome para encontrá-lo..." autocomplete="off" spellcheck="false"/>
-    <div id="counter"></div>
+    <input type="search" id="search" placeholder="Pesquise seu nome..." autocomplete="off" spellcheck="false"/>
   </div>
+
+  <div id="counter"></div>
 
   <div id="no-results">
-    <span class="emoji">🔍</span>
-    Nenhum nome encontrado para "<strong id="search-term"></strong>"
+    <span class="icon">🔍</span>
+    Nenhum resultado para "<strong id="search-term"></strong>"
   </div>
 
-  <div id="list"></div>
+  <div class="list-body" id="list"></div>
 
-</div>
+  <footer>
+    feito com 🧠 por <a href="https://wa.me/5511948173969" target="_blank">JoaoC</a>
+  </footer>
+
+  <!-- WhatsApp floating button -->
+  <a class="whatsapp-btn" href="https://wa.me/5511948173969" target="_blank" aria-label="Fale comigo no WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+      <path d="M16 .5C7.44.5.5 7.44.5 16c0 2.72.7 5.3 2.03 7.6L.5 31.5l8.12-2.03A15.45 15.45 0 0016 31.5C24.56 31.5 31.5 24.56 31.5 16S24.56.5 16 .5zm0 28.3a13.1 13.1 0 01-6.7-1.83l-.48-.28-4.82 1.21 1.22-4.7-.32-.5A13.08 13.08 0 012.8 16C2.8 9.26 8.26 3.8 16 3.8S29.2 9.26 29.2 16 23.74 28.8 16 28.8zm7.17-9.76c-.39-.2-2.32-1.15-2.68-1.28-.36-.13-.62-.2-.88.2s-1.01 1.28-1.24 1.54c-.23.26-.45.29-.84.1a10.6 10.6 0 01-3.12-1.93 11.7 11.7 0 01-2.16-2.69c-.23-.39 0-.6.17-.8.17-.17.39-.45.58-.68.2-.23.26-.39.39-.65.13-.26.07-.49-.03-.68-.1-.2-.88-2.13-1.21-2.91-.32-.76-.64-.66-.88-.67h-.75c-.26 0-.68.1-1.04.49-.36.39-1.36 1.33-1.36 3.24s1.39 3.76 1.58 4.02c.2.26 2.73 4.17 6.62 5.85.93.4 1.65.64 2.21.82.93.3 1.78.26 2.45.16.75-.11 2.32-.95 2.64-1.87.33-.91.33-1.7.23-1.87-.1-.16-.36-.26-.75-.46z"/>
+    </svg>
+  </a>
 
 <script>
   const names = [
@@ -295,14 +318,14 @@
     "Beatriz Dos Santos Ruiz Prust",
     "Camila Cubas de Sousa",
     "Carla Lima Brito",
-    "Caroline conceição da silva",
+    "Caroline Conceição da Silva",
     "Daiane Cristina Da Silva Francisco",
     "Daniele dos Santos Silva Barbosa",
-    "Déborah Barbosa Da silva Lima",
+    "Déborah Barbosa Da Silva Lima",
     "Diego Lamana",
-    "Diogo Vitorino da silva",
+    "Diogo Vitorino da Silva",
     "Eduarda Cubas De Sousa",
-    "Eliabe Álvaro Soares Dos reis",
+    "Eliabe Álvaro Soares Dos Reis",
     "Erica Aparecida Rodrigues Da Silva",
     "Erika Cristina Patrício",
     "Erik Vinícius Miranda Sousa",
@@ -358,7 +381,6 @@
     "Yasmin Araújo de Oliveira"
   ];
 
-  // Normalize accents for comparison
   function normalize(str) {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   }
@@ -367,51 +389,39 @@
     return name.trim()[0].normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
   }
 
-  // Group by first letter
-  function groupByLetter(arr) {
-    const groups = {};
-    arr.forEach(name => {
-      const letter = getFirstLetter(name);
-      if (!groups[letter]) groups[letter] = [];
-      groups[letter].push(name);
-    });
-    return groups;
-  }
+  const grouped = {};
+  names.forEach(name => {
+    const l = getFirstLetter(name);
+    if (!grouped[l]) grouped[l] = [];
+    grouped[l].push(name);
+  });
 
-  const grouped = groupByLetter(names);
   const letters = Object.keys(grouped).sort();
-
   const listEl = document.getElementById('list');
-  const searchEl = document.getElementById('search');
-  const counterEl = document.getElementById('counter');
-  const noResults = document.getElementById('no-results');
-  const searchTermEl = document.getElementById('search-term');
+  let globalIndex = 1;
 
-  // Build DOM
-  letters.forEach((letter, i) => {
+  letters.forEach(letter => {
     const section = document.createElement('div');
     section.className = 'letter-section';
     section.dataset.letter = letter;
-    section.style.animationDelay = `${0.05 * i}s`;
 
+    const count = grouped[letter].length;
     section.innerHTML = `
       <div class="letter-header">
         <div class="letter-badge">${letter}</div>
         <div class="letter-line"></div>
-        <span class="letter-count" data-letter="${letter}">${grouped[letter].length} nome${grouped[letter].length > 1 ? 's' : ''}</span>
+        <span class="letter-count" data-lc="${letter}">${count} nome${count > 1 ? 's' : ''}</span>
       </div>
-      <div class="names-grid" data-grid="${letter}"></div>
     `;
-
-    const grid = section.querySelector('.names-grid');
 
     grouped[letter].forEach(name => {
       const item = document.createElement('div');
       item.className = 'name-item';
       item.dataset.name = name;
       item.dataset.normalized = normalize(name);
-      item.textContent = name;
-      grid.appendChild(item);
+      item.dataset.idx = globalIndex++;
+      item.innerHTML = `<span class="name-num">${item.dataset.idx}</span><span class="name-text">${name}</span>`;
+      section.appendChild(item);
     });
 
     listEl.appendChild(section);
@@ -419,62 +429,52 @@
 
   updateCounter(names.length, names.length);
 
-  function updateCounter(visible, total) {
-    counterEl.innerHTML = `Exibindo <strong>${visible}</strong> de <strong>${total}</strong> nomes`;
+  function updateCounter(v, t) {
+    document.getElementById('counter').innerHTML =
+      `Exibindo <strong>${v}</strong> de <strong>${t}</strong> nomes`;
   }
 
-  function highlight(text, query) {
-    if (!query) return text;
-    const normText = normalize(text);
-    const normQuery = normalize(query);
-    const idx = normText.indexOf(normQuery);
-    if (idx === -1) return text;
-    return (
-      text.slice(0, idx) +
-      `<mark>${text.slice(idx, idx + query.length)}</mark>` +
-      text.slice(idx + query.length)
-    );
+  function highlight(text, raw) {
+    if (!raw) return text;
+    const i = normalize(text).indexOf(normalize(raw));
+    if (i === -1) return text;
+    return text.slice(0, i) + `<mark>${text.slice(i, i + raw.length)}</mark>` + text.slice(i + raw.length);
   }
 
-  searchEl.addEventListener('input', () => {
-    const raw = searchEl.value.trim();
-    const query = normalize(raw);
-
-    let totalVisible = 0;
+  document.getElementById('search').addEventListener('input', function () {
+    const raw = this.value.trim();
+    const q = normalize(raw);
+    let visible = 0;
 
     document.querySelectorAll('.letter-section').forEach(section => {
       const letter = section.dataset.letter;
-      let sectionVisible = 0;
+      let sv = 0;
 
       section.querySelectorAll('.name-item').forEach(item => {
-        const matches = !query || item.dataset.normalized.includes(query);
-        if (matches) {
+        const match = !q || item.dataset.normalized.includes(q);
+        if (match) {
           item.classList.remove('hidden');
-          item.innerHTML = highlight(item.dataset.name, raw);
-          sectionVisible++;
-          totalVisible++;
+          item.querySelector('.name-text').innerHTML = highlight(item.dataset.name, raw);
+          sv++; visible++;
         } else {
           item.classList.add('hidden');
-          item.textContent = item.dataset.name;
+          item.querySelector('.name-text').textContent = item.dataset.name;
         }
       });
 
-      const countEl = section.querySelector(`[data-letter="${letter}"]`);
-      if (sectionVisible === 0) {
-        section.classList.add('hidden');
-      } else {
-        section.classList.remove('hidden');
-        countEl.textContent = `${sectionVisible} nome${sectionVisible > 1 ? 's' : ''}`;
-      }
+      section.classList.toggle('hidden', sv === 0);
+      const lc = section.querySelector(`[data-lc="${letter}"]`);
+      if (lc) lc.textContent = `${sv} nome${sv !== 1 ? 's' : ''}`;
     });
 
-    updateCounter(totalVisible, names.length);
+    updateCounter(visible, names.length);
 
-    if (totalVisible === 0 && raw) {
-      noResults.style.display = 'block';
-      searchTermEl.textContent = raw;
+    const noRes = document.getElementById('no-results');
+    if (visible === 0 && raw) {
+      noRes.style.display = 'block';
+      document.getElementById('search-term').textContent = raw;
     } else {
-      noResults.style.display = 'none';
+      noRes.style.display = 'none';
     }
   });
 </script>
